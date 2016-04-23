@@ -1,0 +1,11 @@
+[package]
+name = "dungen"
+version = "0.1.1"
+authors = ["tsujin <contact@tsujin.com>"]
+description = "Simple random dungeon generator"
+readme = "README.md"
+keywords = ["dungeon", "generator", "roguelike", "game"]
+license-file = "LICENSE.md"
+
+[dependencies]
+rand = "0.3.14"
