@@ -6,6 +6,8 @@ description = "Simple random dungeon generator"
 readme = "README.md"
 keywords = ["dungeon", "generator", "roguelike", "game"]
 license-file = "LICENSE.md"
+repository = "https://github.com/tsujin/dungen.git"
+homepage = "https://github.com/tsujin/dungen"
 
 [dependencies]
 rand = "0.3.14"
