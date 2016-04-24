@@ -1,6 +1,6 @@
 [package]
 name = "dungen"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["tsujin <contact@tsujin.com>"]
 description = "Simple random dungeon generator"
 readme = "README.md"
