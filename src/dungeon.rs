@@ -66,6 +66,28 @@ impl Dungeon {
                     exits: Vec::new() }
     }
 
+    fn _print_dungeon(&self) {
+        for y in 1..self.height {
+            for x in 1..self.width {
+                print!("{}", self._get_tile_icon(self.get_tile(x, y)));
+            }
+            println!("");
+        }
+    }
+
+    fn _get_tile_icon(&self, tile: Tile) -> char {
+        match tile {
+            Tile::Floor =>      '.',
+            Tile::Corridor =>   ',',
+            Tile::Wall =>       '#',
+            Tile::ClosedDoor => '+',
+            Tile::OpenDoor =>   '-',
+            Tile::Exit =>       '>',
+            Tile::Entrance =>   '<',
+            _ =>                ' ', 
+        }
+    }
+
     pub fn generate(&mut self, maxfeatures: isize) {
         let x = self.width;
         let y = self.height;
@@ -175,7 +197,7 @@ impl Dungeon {
 
     fn make_room(&mut self, x: isize, y: isize, dir: &Dir, firstroom: bool) -> bool {
         let minsize: isize = 3;
-        let maxsize: isize = 6;
+        let maxsize: isize = 16;
 
         let mut room: Rect = Rect::new(0, 0, rng::inclusive_random(minsize, maxsize), rng::inclusive_random(minsize, maxsize));
 
@@ -229,7 +251,7 @@ impl Dungeon {
         let mut rng = thread_rng();
 
         let minlength = 3;
-        let maxlength = 6;
+        let maxlength = 10;
 
         let mut corridor = Rect::new(x, y, 0, 0);
 
@@ -314,7 +336,8 @@ impl Dungeon {
     }
 
     fn place_rect(&mut self, rect: &Rect, tile: Tile) -> bool {
-        if (rect.x < 1) || (rect.y < 1) || (rect.x + rect.width > self.width - 1) || (rect.y + rect.height > self.height - 1) {
+        // ensure rect is placed within the boundaries of the dungeon
+        if (rect.x <= 1) || (rect.y <= 1) || (rect.x + rect.width > self.width - 1) || (rect.y + rect.height > self.height - 1) {
             return false
         }
 
@@ -326,12 +349,15 @@ impl Dungeon {
             }
         }
 
+        // checks have passed, we can place a rect here
         for y in rect.y-1..rect.y+rect.height+1 {
             for x in rect.x-1..rect.x+rect.width+1 {
+                // fill boundaries of rect with walls
                 if (x == rect.x - 1) || (y == rect.y - 1) || (x == rect.x + rect.width) || (y == rect.y + rect.height) {
                     self.set_tile(x, y, Tile::Wall);
                 }
 
+                // fill rect with appropriate tiles
                 else {
                     self.set_tile(x, y, tile);
                 }
@@ -367,9 +393,11 @@ mod tests {
     
     #[test]
     fn test_dungeon() {
-        let mut d: Dungeon = Dungeon::new(25, 25);
-        let max_features: isize = 10;
+        let mut d: Dungeon = Dungeon::new(100, 100);
+        let max_features: isize = 78;
 
         d.generate(max_features);
+        // must use cargo test -- --nocapture to see this output
+        d._print_dungeon();
     }
 }
