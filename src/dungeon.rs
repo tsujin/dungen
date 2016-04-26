@@ -1,3 +1,16 @@
+/*
+Simple, random dungeon generator written in Rust. Originally described by Mike Anderson at
+http://www.roguebasin.com/index.php?title=Dungeon-Building_Algorithm
+
+Sample usage:
+
+let mut d = Dungeon::new(50, 50);
+let max_features = 35;
+d.generate(max_features);
+
+To see the output, call d._print_dungeon()
+*/
+
 use std::slice::Iter;
 use rng;
 
@@ -22,7 +35,7 @@ enum Dir {
 }
 
 impl Dir {
-    // iterator over direction types
+    // iterator over direction variants
     pub fn iterator() -> Iter<'static, Dir> {
         static DIR: [Dir;  4] = [Dir::North, Dir::South, Dir::East, Dir::West];
         DIR.into_iter()
@@ -84,7 +97,7 @@ impl Dungeon {
             Tile::OpenDoor =>   '-',
             Tile::Exit =>       '>',
             Tile::Entrance =>   '<',
-            _ =>                ' ', 
+            Tile::Unused =>     ' ', 
         }
     }
 
