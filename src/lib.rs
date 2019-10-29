@@ -1,4 +1,5 @@
 extern crate rand;
 
-mod rng;
+pub use self::dungeon::Dungeon;
 pub mod dungeon;
+mod rng;

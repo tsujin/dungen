@@ -1,6 +1,6 @@
 [package]
 name = "dungen"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["tsujin <contact@tsujin.com>"]
 description = "Simple random dungeon generator"
 readme = "README.md"
@@ -10,4 +10,4 @@ repository = "https://github.com/tsujin/dungen.git"
 homepage = "https://github.com/tsujin/dungen"
 
 [dependencies]
-rand = "0.3.14"
+rand = "0.7"
