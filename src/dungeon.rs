@@ -38,7 +38,7 @@ impl Dir {
     // iterator over direction variants
     pub fn iterator() -> Iter<'static, Dir> {
         static DIR: [Dir;  4] = [Dir::North, Dir::South, Dir::East, Dir::West];
-        DIR.into_iter()
+        DIR.iter()
     }
 
     pub fn get_random_dir<'a>()-> &'a Dir {
